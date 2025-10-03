@@ -48,7 +48,7 @@ Llamaremos a las máquinas de la siguiente manera:
 La máquina router la llamaremos router.tunombre.org, y tendrá una distribución Debian sin entorno gráfico. La máquina Servidor Web la llamaremos web.tunombre.org, y tendrá una distribución Ubuntu Server (sin entorno gráfico). El cliente1 la llamaremos cliente1.tunombre.org, y tendrá una distribución Fedora. El cliente2 la llamaremos cliente2.tunombre.org, y tendrá un sistema operativo Windows 11. Tendremos 3 redes:">
   <meta itemprop="datePublished" content="2025-10-03T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-10-03T00:00:00+00:00">
-  <meta itemprop="wordCount" content="224">
+  <meta itemprop="wordCount" content="283">
   <meta itemprop="image" content="http://localhost:1313/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -208,6 +208,27 @@ La máquina router la llamaremos router.tunombre.org, y tendrá una distribució
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#activar forwarding</span>
 </span></span><span style="display:flex;"><span>net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>debian@marina:~$ sudo sysctl --system
+</span></span></code></pre></div><p>Configuración de las interfaces:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#static config for enp1s0 (nat)</span>
+</span></span><span style="display:flex;"><span>auto enp1s0
+</span></span><span style="display:flex;"><span>iface enp1s0 inet static
+</span></span><span style="display:flex;"><span>        address 192.168.12.2
+</span></span><span style="display:flex;"><span>        netmask 255.255.255.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#static config for enp7s0 (aislada)</span>
+</span></span><span style="display:flex;"><span>auto enp7s0
+</span></span><span style="display:flex;"><span>iface enp7s0 inet static
+</span></span><span style="display:flex;"><span>        address 192.168.11.2
+</span></span><span style="display:flex;"><span>        netmask 255.255.255.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#static config for enp8s0 (muy aislada)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#tiene que ser /16</span>
+</span></span><span style="display:flex;"><span>auto enp8s0
+</span></span><span style="display:flex;"><span>iface enp8s0 inet static
+</span></span><span style="display:flex;"><span>        address 192.168.10.1
+</span></span><span style="display:flex;"><span>        netmask 255.255.0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>debian@router:~$ sudo systemctl restart networking.service
 </span></span></code></pre></div>
             </div>
         </article>

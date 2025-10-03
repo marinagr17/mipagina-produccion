@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/home/marina/Escritorio/Implantacion Web/proyecto/mipagina",
+	"sourceRoot": "/home/marina/Escritorio/ImplantacionWeb/proyecto/mipagina",
 	"sources": [
 		"themes/hello-friend/assets/scss/main.scss",
 		"themes/hello-friend/assets/scss/_normalize.scss",

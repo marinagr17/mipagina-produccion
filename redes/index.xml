@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redes y virtualización on Ping a Marina</title>
+    <link>http://localhost:1313/redes/</link>
+    <description>Recent content in Redes y virtualización on Ping a Marina</description>
+    <generator>Hugo</generator>
+    <language>es</language>
+    <lastBuildDate>Fri, 03 Oct 2025 08:49:24 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/redes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configuración de un router (SNAT y DNAT)</title>
+      <link>http://localhost:1313/redes/nat/</link>
+      <pubDate>Fri, 03 Oct 2025 08:49:24 +0200</pubDate>
+      <guid>http://localhost:1313/redes/nat/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

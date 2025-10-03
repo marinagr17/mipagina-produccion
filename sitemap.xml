@@ -2,34 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>http://localhost:26965/</loc>
     <lastmod>2025-10-03T08:42:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/sistemas/</loc>
+    <loc>http://localhost:26965/sistemas/</loc>
     <lastmod>2025-10-03T08:42:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/seguridad/</loc>
+    <loc>http://localhost:26965/seguridad/</loc>
     <lastmod>2025-10-03T08:42:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/redes/nat/</loc>
+    <loc>http://localhost:26965/redes/nat/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/redes/</loc>
+    <loc>http://localhost:26965/redes/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/bbdd/</loc>
+    <loc>http://localhost:26965/bbdd/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/bbdd/normalizacion/</loc>
+    <loc>http://localhost:26965/bbdd/normalizacion/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/bbdd/repaso-sql/</loc>
+    <loc>http://localhost:26965/bbdd/repaso-sql/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>http://localhost:26965/blog/</loc>
   </url><url>
-    <loc>http://localhost:1313/series/</loc>
+    <loc>http://localhost:26965/series/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>http://localhost:26965/tags/</loc>
   </url>
 </urlset>

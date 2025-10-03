@@ -2,22 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:23169/</loc>
+    <loc>https://pingamarina.netlify.app/</loc>
     <lastmod>2025-10-03T08:42:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:23169/redes/nat/</loc>
+    <loc>https://pingamarina.netlify.app/sistemas/</loc>
+    <lastmod>2025-10-03T08:42:38+02:00</lastmod>
+  </url><url>
+    <loc>https://pingamarina.netlify.app/seguridad/</loc>
+    <lastmod>2025-10-03T08:42:12+02:00</lastmod>
+  </url><url>
+    <loc>https://pingamarina.netlify.app/redes/nat/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:23169/bbdd/normalizacion/</loc>
+    <loc>https://pingamarina.netlify.app/redes/</loc>
+    <lastmod>2025-10-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://pingamarina.netlify.app/bbdd/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:23169/bbdd/repaso-sql/</loc>
+    <loc>https://pingamarina.netlify.app/bbdd/normalizacion/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:23169/blog/</loc>
+    <loc>https://pingamarina.netlify.app/bbdd/repaso-sql/</loc>
+    <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:23169/series/</loc>
+    <loc>https://pingamarina.netlify.app/blog/</loc>
   </url><url>
-    <loc>http://localhost:23169/tags/</loc>
+    <loc>https://pingamarina.netlify.app/series/</loc>
+  </url><url>
+    <loc>https://pingamarina.netlify.app/tags/</loc>
   </url>
 </urlset>

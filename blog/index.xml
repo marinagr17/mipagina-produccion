@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Ping a Marina</title>
-    <link>http://localhost:23169/blog/</link>
+    <link>https://pingamarina.netlify.app/blog/</link>
     <description>Recent content in Blog on Ping a Marina</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <atom:link href="http://localhost:23169/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pingamarina.netlify.app/blog/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:26365/</loc>
+    <loc>http://localhost:23169/</loc>
     <lastmod>2025-10-03T08:42:38+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:26365/redes/nat/</loc>
+    <loc>http://localhost:23169/redes/nat/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:26365/bbdd/normalizacion/</loc>
+    <loc>http://localhost:23169/bbdd/normalizacion/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:26365/bbdd/repaso-sql/</loc>
+    <loc>http://localhost:23169/bbdd/repaso-sql/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:26365/blog/</loc>
+    <loc>http://localhost:23169/blog/</loc>
   </url><url>
-    <loc>http://localhost:26365/series/</loc>
+    <loc>http://localhost:23169/series/</loc>
   </url><url>
-    <loc>http://localhost:26365/tags/</loc>
+    <loc>http://localhost:23169/tags/</loc>
   </url>
 </urlset>

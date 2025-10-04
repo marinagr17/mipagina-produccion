@@ -46,7 +46,7 @@ Tabla PRODUCTOS Campo Tipo de dato Restricciones CodProducto NUMBER — Nombre V
 Tabla PRODUCTOS Campo Tipo de dato Restricciones CodProducto NUMBER — Nombre VARCHAR2 (20) — Tipo VARCHAR2 (15) Menaje, Informática o Telefonía PrecioUnitario NUMBER Entre 0 y 5000 Tabla CLIENTES Campo Tipo de dato Restricciones DNI Cliente VARCHAR2 (10) 8 números, un guión y una letra mayúscula Nombre VARCHAR2 (20) — FechaAlta Fecha Debe ser posterior a 2019 País VARCHAR2 (20) Solo España, Italia o Francia Tabla VENTAS Campo Tipo de dato Restricciones CodProducto NUMBER — DNI Cliente VARCHAR2 (10) — FechaVenta Fecha — NumUnidades NUMBER — Ejercicios de SQL Realizar una consulta que muestre el nombre del último producto que compró cada cliente que ha realizado alguna compra en los últimos diez días. (0,5 puntos) ORACLE">
   <meta itemprop="datePublished" content="2025-10-02T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-10-02T00:00:00+00:00">
-  <meta itemprop="wordCount" content="338">
+  <meta itemprop="wordCount" content="382">
   <meta itemprop="image" content="https://pingamarina.netlify.app/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -290,7 +290,25 @@ Tabla PRODUCTOS Campo Tipo de dato Restricciones CodProducto NUMBER — Nombre V
 <p>Realiza una consulta con operadores de conjuntos que nos diga qué artículos se han vendido tanto en enero como en febrero como en marzo. (0,5 puntos)</p>
 </li>
 </ol>
-
+<p><strong>ORACLE y POSTGRES</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> nombre 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> productos 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">from</span> ventas 
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">where</span> TO_CHAR(fechaventa,<span style="color:#e6db74">&#39;MM&#39;</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;01&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> nombre 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> productos 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">from</span> ventas 
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">where</span> TO_CHAR(fechaventa,<span style="color:#e6db74">&#39;MM&#39;</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;02&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> nombre 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> productos 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">from</span> ventas 
+</span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">where</span> TO_CHAR(fechaventa,<span style="color:#e6db74">&#39;MM&#39;</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;03&#39;</span>);
+</span></span></code></pre></div>
             </div>
         </article>
 

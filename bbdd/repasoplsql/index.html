@@ -46,7 +46,7 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
 Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y un año y muestre un listado de todas las compras que se han realizado de productos de dicho tipo en dicho mes agrupadas por país y cliente con el siguiente formato:">
   <meta itemprop="datePublished" content="2025-10-04T11:03:10+02:00">
   <meta itemprop="dateModified" content="2025-10-04T11:03:10+02:00">
-  <meta itemprop="wordCount" content="176">
+  <meta itemprop="wordCount" content="170">
   <meta itemprop="image" content="https://pingamarina.netlify.app/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -151,12 +151,12 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
             
 
             <div class="post-content">
-                <p>** Nota importante: Es imprescindible la correcta división del código en los módulos correspondientes y se valorará la legibilidad del código y el uso del menor número posible de consultas al servidor.  **</p>
+                <p>** Nota importante: Es imprescindible la correcta división del código en los módulos correspondientes y se valorará la legibilidad del código y el uso del menor número posible de consultas al servidor. **</p>
 <h2 id="ejercicio-1">Ejercicio 1</h2>
 <p>Realizar un procedimiento que reciba un tipo de producto, un mes y un año y muestre un listado de todas las compras que se han realizado de productos de dicho tipo en dicho mes agrupadas por país y cliente con el siguiente formato:</p>
-<h1 id="compras-de-artículos-de-tipo-tipodeproducto">Compras de Artículos de Tipo <code>TipodeProducto</code></h1>
+<h2 id="compras-de-artículos-de-tipo-tipodeproducto">Compras de Artículos de Tipo <code>TipodeProducto</code></h2>
 <p><strong>Mes:</strong> nn  <strong>Año:</strong> n.nnn</p>
-<h2 id="país-nombrepais">País: <code>NombrePais</code></h2>
+<h3 id="país-nombrepais">País: <code>NombrePais</code></h3>
 <ul>
 <li>
 <p><strong>Cliente:</strong> <code>NombreCliente</code></p>
@@ -164,13 +164,13 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
 <li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li>&hellip;</li>
+<li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 </ul>
 <p><strong>Importe Total Cliente <code>NombreCliente</code></strong></p>
 </li>
 <li>
 <p><strong>Cliente:</strong> <code>NombreCliente</code></p>
 <ul>
-<li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li>&hellip;</li>
 </ul>
@@ -178,12 +178,11 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
 </li>
 </ul>
 <p><strong>Total Compras <code>NombrePais</code>: nnn</strong></p>
-<h2 id="país-nombrepais-1">País: <code>NombrePais</code></h2>
+<h3 id="país-nombrepais-1">País: <code>NombrePais</code></h3>
 <ul>
 <li>
 <p><strong>Cliente:</strong> <code>NombreCliente</code></p>
 <ul>
-<li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li>&hellip;</li>
 </ul>
@@ -192,7 +191,6 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
 <li>
 <p><strong>Cliente:</strong> <code>NombreCliente</code></p>
 <ul>
-<li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li><code>CodProducto</code> | <code>FechaVenta</code> | <code>ImporteCompra</code></li>
 <li>&hellip;</li>
 </ul>
@@ -202,6 +200,8 @@ Ejercicio 1 Realizar un procedimiento que reciba un tipo de producto, un mes y u
 <p><strong>Total Compras <code>NombrePais</code>: nnn</strong></p>
 <hr>
 <p><strong>Total Compras de Artículos de Tipo <code>TipodeProducto</code>: nn</strong></p>
+<hr>
+<h3 id="excepciones-y-mensajes-especiales">Excepciones y mensajes especiales</h3>
 
             </div>
         </article>

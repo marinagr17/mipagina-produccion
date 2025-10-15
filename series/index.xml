@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on Ping a Marina</title>
-    <link>https://pingamarina.netlify.app/series/</link>
+    <link>https://pingamarina.vercel.app/series/</link>
     <description>Recent content in Series on Ping a Marina</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <atom:link href="https://pingamarina.netlify.app/series/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pingamarina.vercel.app/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

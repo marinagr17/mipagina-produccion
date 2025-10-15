@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://pingamarina.netlify.app/</loc>
+    <loc>https://pingamarina.vercel.app/</loc>
     <lastmod>2025-10-04T11:03:10+02:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/bbdd/repasoplsql/</loc>
+    <loc>https://pingamarina.vercel.app/bbdd/repasoplsql/</loc>
     <lastmod>2025-10-04T11:03:10+02:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/sistemas/</loc>
+    <loc>https://pingamarina.vercel.app/sistemas/</loc>
     <lastmod>2025-10-03T08:42:38+02:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/seguridad/</loc>
+    <loc>https://pingamarina.vercel.app/seguridad/</loc>
     <lastmod>2025-10-03T08:42:12+02:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/redes/nat/</loc>
+    <loc>https://pingamarina.vercel.app/redes/nat/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/redes/</loc>
+    <loc>https://pingamarina.vercel.app/redes/</loc>
     <lastmod>2025-10-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/bbdd/</loc>
+    <loc>https://pingamarina.vercel.app/bbdd/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/bbdd/normalizacion/</loc>
+    <loc>https://pingamarina.vercel.app/bbdd/normalizacion/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/bbdd/repaso-sql/</loc>
+    <loc>https://pingamarina.vercel.app/bbdd/repaso-sql/</loc>
     <lastmod>2025-10-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://pingamarina.netlify.app/blog/</loc>
+    <loc>https://pingamarina.vercel.app/blog/</loc>
   </url><url>
-    <loc>https://pingamarina.netlify.app/series/</loc>
+    <loc>https://pingamarina.vercel.app/series/</loc>
   </url><url>
-    <loc>https://pingamarina.netlify.app/tags/</loc>
+    <loc>https://pingamarina.vercel.app/tags/</loc>
   </url>
 </urlset>

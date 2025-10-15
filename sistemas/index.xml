@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sistemas on Ping a Marina</title>
-    <link>https://pingamarina.netlify.app/sistemas/</link>
+    <link>https://pingamarina.vercel.app/sistemas/</link>
     <description>Recent content in Sistemas on Ping a Marina</description>
     <generator>Hugo</generator>
     <language>es</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="https://pingamarina.netlify.app/sistemas/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pingamarina.vercel.app/sistemas/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

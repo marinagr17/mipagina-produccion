@@ -296,13 +296,13 @@ Tabla PRODUCTOS Campo Tipo de dato Restricciones CodProducto NUMBER — Nombre V
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto
 </span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">from</span> ventas 
 </span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">where</span> TO_CHAR(fechaventa,<span style="color:#e6db74">&#39;MM&#39;</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;01&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INTERSECT</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> nombre 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> productos 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto
 </span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">from</span> ventas 
 </span></span><span style="display:flex;"><span>                      <span style="color:#66d9ef">where</span> TO_CHAR(fechaventa,<span style="color:#e6db74">&#39;MM&#39;</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;02&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INTERSECT</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> nombre 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> productos 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> codproducto <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> codproducto

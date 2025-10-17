@@ -46,7 +46,7 @@ Instalación y configuración inicial. Para descargarnos el paquete nos vamos a 
 Instalación y configuración inicial. Para descargarnos el paquete nos vamos a la página de Nessus:">
   <meta itemprop="datePublished" content="2025-10-17T20:48:24+02:00">
   <meta itemprop="dateModified" content="2025-10-17T20:48:24+02:00">
-  <meta itemprop="wordCount" content="812">
+  <meta itemprop="wordCount" content="1971">
   <meta itemprop="image" content="https://pingamarina.vercel.app/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -223,6 +223,178 @@ Puertos detectados:</p>
 </span></span><span style="display:flex;"><span>Port 5353/udp was found to be open	→ mDNS
 </span></span><span style="display:flex;"><span>Port 5500/tcp was found to be open		→ HTTP
 </span></span></code></pre></div><p>El resto de vulnerabilidades que aparecen en la lista nos proporcionan información como el hostname de la máquina, el FQDN.</p>
+<h2 id="alertas-por-correo-electrónico">Alertas por correo electrónico.</h2>
+<p>Nuestro objetivo es configurar alertas automáticas que nos lleguen directamente al correo electrónico.
+Voy a usar Postfix para configurar el servidor de correo de Nessus. Para empezar Vamos a configurar la cerificación en dos pasos de nuestro correo:
+<img src="/images/seguridad/16.png" alt="Nessus">
+Al meternos en ‘Gestionar tu cuenta de Google’, se nos abre una pestaña, donde nos podemos meter en el apartado de seguridad:
+<img src="/images/seguridad/17.png" alt="Nessus">
+Una vez activada, vamos al buscador e introducimos ‘contraseña de aplicaciones’:
+<img src="/images/seguridad/18.png" alt="Nessus">
+<img src="/images/seguridad/19.png" alt="Nessus">
+<img src="/images/seguridad/20.png" alt="Nessus">
+Nos genera una contraseña. Ahora instalamos postfix y lo configuramos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo apt install postfix -y
+</span></span></code></pre></div><p><img src="/images/seguridad/21.png" alt="Nessus">
+En este apartado introducimos el FQDN de nuestra máquina.
+<img src="/images/seguridad/22.png" alt="Nessus">
+Una vez instalado podemos proceder a configurarlo, para ello modificaremos el archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GNU nano 8.4                  /etc/postfix/main.cf   
+</span></span><span style="display:flex;"><span>  GNU nano 8.4                                                                                                                                                                                                                                                                                                                                                                                                                                                                          /etc/postfix/main.cf *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  CONFIGURACIÓN PRINCIPAL DE POSTFIX</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  Adaptado para usar el SMTP de Gmail</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  FQDN del servidor: nessus.org</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nivel de compatibilidad (por defecto en versiones recientes de Postfix)</span>
+</span></span><span style="display:flex;"><span>compatibility_level <span style="color:#f92672">=</span> 3.9
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nombre completo (FQDN) del servidor</span>
+</span></span><span style="display:flex;"><span>myhostname <span style="color:#f92672">=</span> nessus.org
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Dominio que aparecerá como origen de los correos salientes</span>
+</span></span><span style="display:flex;"><span>myorigin <span style="color:#f92672">=</span> /etc/mailname
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Interfaces en las que Postfix escuchará (todas)</span>
+</span></span><span style="display:flex;"><span>inet_interfaces <span style="color:#f92672">=</span> all
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Protocolos IP (soporta IPv4 e IPv6)</span>
+</span></span><span style="display:flex;"><span>inet_protocols <span style="color:#f92672">=</span> all
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Máquinas de confianza (solo este host podrá enviar)</span>
+</span></span><span style="display:flex;"><span>mynetworks_style <span style="color:#f92672">=</span> host
+</span></span><span style="display:flex;"><span>mynetworks <span style="color:#f92672">=</span> 127.0.0.0/8 <span style="color:#f92672">[</span>::1<span style="color:#f92672">]</span>/128
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Destinos locales (dominios que este servidor considera propios)</span>
+</span></span><span style="display:flex;"><span>mydestination <span style="color:#f92672">=</span> $myhostname, localhost.$mydomain, localhost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># No limitar el tamaño del buzón (0 = ilimitado)</span>
+</span></span><span style="display:flex;"><span>mailbox_size_limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Separador entre nombre de usuario y extensión (usuario+info@dominio)</span>
+</span></span><span style="display:flex;"><span>recipient_delimiter <span style="color:#f92672">=</span> +
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Archivos de alias locales</span>
+</span></span><span style="display:flex;"><span>alias_maps <span style="color:#f92672">=</span> hash:/etc/aliases
+</span></span><span style="display:flex;"><span>alias_database <span style="color:#f92672">=</span> hash:/etc/aliases
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Desactivar notificaciones tipo &#34;biff&#34;</span>
+</span></span><span style="display:flex;"><span>biff <span style="color:#f92672">=</span> no
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  CONFIGURACIÓN PARA ENVIAR CORREOS VIA GMAIL</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Servidor SMTP de Gmail y su puerto (STARTTLS en 587)</span>
+</span></span><span style="display:flex;"><span>relayhost <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>smtp.gmail.com<span style="color:#f92672">]</span>:587
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Activar el uso de TLS</span>
+</span></span><span style="display:flex;"><span>smtp_use_tls <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>smtp_tls_security_level <span style="color:#f92672">=</span> encrypt
+</span></span><span style="display:flex;"><span>smtp_tls_CAfile <span style="color:#f92672">=</span> /etc/ssl/certs/ca-certificates.crt
+</span></span><span style="display:flex;"><span>smtp_tls_session_cache_database <span style="color:#f92672">=</span> btree:<span style="color:#e6db74">${</span>data_directory<span style="color:#e6db74">}</span>/smtp_scache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Activar autenticación SASL para Gmail</span>
+</span></span><span style="display:flex;"><span>smtp_sasl_auth_enable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Archivo con usuario y contraseña (creado por ti en /etc/postfix/sasl_passwd)</span>
+</span></span><span style="display:flex;"><span>smtp_sasl_password_maps <span style="color:#f92672">=</span> hash:/etc/postfix/sasl_passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Opciones de seguridad SASL</span>
+</span></span><span style="display:flex;"><span>smtp_sasl_security_options <span style="color:#f92672">=</span> noanonymous
+</span></span><span style="display:flex;"><span>smtp_sasl_tls_security_options <span style="color:#f92672">=</span> noanonymous
+</span></span><span style="display:flex;"><span>smtp_sasl_mechanism_filter <span style="color:#f92672">=</span> plain, login
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  CONFIGURACIÓN DEL SERVIDOR LOCAL</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Banner de presentación cuando alguien conecta por SMTP</span>
+</span></span><span style="display:flex;"><span>smtpd_banner <span style="color:#f92672">=</span> $myhostname ESMTP $mail_name <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nivel de seguridad TLS del servidor local (no afecta al envío)</span>
+</span></span><span style="display:flex;"><span>smtpd_tls_security_level <span style="color:#f92672">=</span> may
+</span></span><span style="display:flex;"><span>smtpd_tls_cert_file <span style="color:#f92672">=</span> /etc/ssl/certs/ssl-cert-snakeoil.pem
+</span></span><span style="display:flex;"><span>smtpd_tls_key_file  <span style="color:#f92672">=</span> /etc/ssl/private/ssl-cert-snakeoil.key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Restricciones básicas para el reenvío</span>
+</span></span><span style="display:flex;"><span>smtpd_relay_restrictions <span style="color:#f92672">=</span> permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  FIN DEL ARCHIVO</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
+</span></span></code></pre></div><p>A continuación, editamos, o creamos si no existe, el siguiente archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo nano /etc/postfix/sasl_passwd
+</span></span><span style="display:flex;"><span>  GNU nano 8.4                    /etc/postfix/sasl_passwd *                           
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>smtp.gmail.com<span style="color:#f92672">]</span>:587    marinagraciaontanilla@gmail.com:contraseña
+</span></span></code></pre></div><p>En contraseña pondremos la contraseña de aplicación que se nos generó anteriormente. La contraseña aparece con espacios, en este fichero la colocamos sin espacios.
+Guardamos el archivo y le cambiamos los permisos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo postmap /etc/postfix/sasl_passwd 
+</span></span><span style="display:flex;"><span>nessus@debian:~$ sudo chmod <span style="color:#ae81ff">400</span> /etc/postfix/sasl_passwd
+</span></span></code></pre></div><p>postmap es para convertir el archivo en un formato de base de datos que Postfix puede leer.
+Reiniciamos postfix:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo systemctl restart postfix
+</span></span></code></pre></div><p>Ahora pasamos a configurar el SMTP de nessus:
+<img src="/images/seguridad/23.png" alt="Nessus">
+En el host tenemos que poner el nombre de nuestro host, ya que si ponemos localhost nos da un error. Para ello debemos hacer el siguiente cambio en el /etc/hosts:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> GNU nano 8.4                           /etc/hosts                                    
+</span></span><span style="display:flex;"><span>127.0.0.1       nessus.org
+</span></span><span style="display:flex;"><span>. . .
+</span></span></code></pre></div><p>Puerto 25 porque Postfix escucha en ese puerto, que es el puerto estándar de SMTP. Esto es porque usamos Postfix local, si fuese gmail externo sería el 587.
+En el correo debemos poner el que usamos en ‘/etc/postfix/sasl_passwd’.
+Como Nessus habla con Postfix local, en encryption vamos a seleccionar NONE.
+Hostname sirve para los enalces dentro de los emails.
+En auth method no ponemos nada, ya que Postfix acepta mensajes desde localhost sin credenciales.
+A continuación, he programado un nuevo escáner que se ha ejecutado, y al que he configurado para que cuando termine me notifique por correo.
+<img src="/images/seguridad/24.png" alt="Nessus"></p>
+<p>Una vez finalizado el escáner, comprobamos nuestro correo:
+<img src="/images/seguridad/25.png" alt="Nessus"></p>
+<p>El escaneo evalúa los servicios y puertos abiertos del equipo, identificando posibles fallos de configuración, software desactualizado y debilidades de seguridad que podrían ser explotadas por un atacante.
+Nessus analiza estos elementos mediante plugins especializados, los cuales comparan las versiones de los servicios detectados con bases de datos de vulnerabilidades conocidas.
+En este caso, el informe muestra un resumen con las vulnerabilidades más graves encontradas, clasificadas por nivel de severidad (Crítica, Alta, Media, Baja e Informativa).</p>
+<h2 id="prueba-de-uso-en-red">Prueba de uso en red.</h2>
+<p>Para hacer una prueba de uso en red, vamos a seleccionar varios hosts que me han aparecido en un nuevo escaneo de descubrimiento de hosts. He creado varias máquinas virtuales para poder ejecutar el escáner con credenciales SSH y poder realizarlo completo.</p>
+<p><img src="/images/seguridad/26.png" alt="Nessus">
+Copiamos la clave publica en las tres máquinas y creamos un escáner nuevo como hemos hecho anteriormente.
+Vamos a elegir el siguiente escáner:
+<img src="/images/seguridad/27.png" alt="Nessus">
+Y configuramos:
+<img src="/images/seguridad/28.png" alt="Nessus">
+<img src="/images/seguridad/29.png" alt="Nessus"></p>
+<p>En el apartado “Dynamic Pluggins” podemos especificar la ID de vulnerabilidad que queremos que el escaneo busque.
+<img src="/images/seguridad/30.png" alt="Nessus">
+Esta ID es una vulnerabilidad conocida en Log4j que permite la ejecución remota de un código. Como podemos ver Nessus tiene pluggins dedicados para detectarla. Guardamos y lanzamos el escaneo.
+En la pestaña ‘schedule’ vamos a programarlo:
+<img src="/images/seguridad/31.png" alt="Nessus">
+Nessus Essentials solo permite una única programación.
+En la opción ‘Targets to prioritize credentials’ ponemos la ip de los hosts. Esto agiliza el proceso ya que no las busca, sino que se las indicamos.
+<img src="/images/seguridad/32.png" alt="Nessus">
+Lo ideal sería programar también un escáner de puertos para saber que puertos están en la red.
+Como en mi red no hay vulnerabilidades, solo nos da datos informativos:
+<img src="/images/seguridad/33.png" alt="Nessus"></p>
+<h2 id="escáner-a-máquina-metasploitable">Escáner a máquina metasploitable.</h2>
+<p>Mediante un escáner de DiscoveryHost encontramos la ip de nuestra metaspoitable:
+<img src="/images/seguridad/34.png" alt="Nessus">
+Una vez tenemos la dirección, lanzamos un nuevo escáner para ver las vulnerabilidades. Configuramos servidor de correo, pluggins que no hacen falta los desactivamos para no cargar tanto el escáner y que sea más rápido:
+<img src="/images/seguridad/35.png" alt="Nessus">
+Si accedemos a las vulnerabilidades, nos aparece un informe:
+<img src="/images/seguridad/36.png" alt="Nessus"></p>
+<h3 id="informe">Informe.</h3>
+<p>Podemos exportar los informes del escáner.
+<img src="/images/seguridad/37.png" alt="Nessus"></p>
+<p>Nos genera informes según clasifica las vulnerabilidades.
+Entre las más destacadas aparecen:
+- Debilidad en el generador de números aleatorios de OpenSSH/OpenSSL (Debian), que compromete la fortaleza de las claves criptográficas.
+- Protocolos SSL 2.0 y 3.0 activos, que ya no son seguros y deben deshabilitarse.
+- Vulnerabilidad “Ghostcat” en Apache Tomcat, que permite la inyección de peticiones a través del conector AJP.
+- Puerta trasera detectada (Bind Shell Backdoor) que indica una posible intrusión.
+- Sistema operativo Ubuntu 8.04.x sin soporte (EoL), lo que lo hace vulnerable al no recibir actualizaciones.
+El host analizado (192.168.122.247) presenta un total de 172 vulnerabilidades, de las cuales 10 son críticas. El informe también incluye un apartado de remediaciones sugeridas, donde se recomiendan acciones para mitigar los riesgos detectados, como actualizar servicios (BIND, Samba), eliminar software malicioso o reinstalar aplicaciones comprometidas. En conjunto, este informe proporciona una visión general del estado de seguridad del sistema, permitiendo priorizar las correcciones necesarias para reducir la superficie de ataque.
+Escaneo por pluggin:</p>
+<p><img src="/images/seguridad/38.png" alt="Nessus"></p>
+<p>Escaneo por hots:
+<img src="/images/seguridad/39.png" alt="Nessus"></p>
 
             </div>
         </article>

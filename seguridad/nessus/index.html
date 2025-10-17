@@ -46,7 +46,7 @@ Instalación y configuración inicial. Para descargarnos el paquete nos vamos a 
 Instalación y configuración inicial. Para descargarnos el paquete nos vamos a la página de Nessus:">
   <meta itemprop="datePublished" content="2025-10-17T20:48:24+02:00">
   <meta itemprop="dateModified" content="2025-10-17T20:48:24+02:00">
-  <meta itemprop="wordCount" content="1966">
+  <meta itemprop="wordCount" content="1962">
   <meta itemprop="image" content="https://pingamarina.vercel.app/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -170,47 +170,48 @@ nessus:</p>
 </span></span><span style="display:flex;"><span>tcp   LISTEN <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">1024</span>                                 <span style="color:#f92672">[</span>::<span style="color:#f92672">]</span>:8834 <span style="color:#f92672">[</span>::<span style="color:#f92672">]</span>:*    users:<span style="color:#f92672">((</span><span style="color:#e6db74">&#34;nessusd&#34;</span>,pid<span style="color:#f92672">=</span>1423,fd<span style="color:#f92672">=</span>19<span style="color:#f92672">))</span>
 </span></span></code></pre></div><p>Nos vamos al navegador para poder configurar Nessus:</p>
 <p><img src="/images/seguridad/nessus2.png" alt="Nessus"></p>
-<p>A continuación, nos ofrece una serie de opciones:
-<img src="/images/seguridad/nessus3.png" alt="Nessus"></p>
+<p>A continuación, nos ofrece una serie de opciones:</p>
+<p><img src="/images/seguridad/nessus3.png" alt="Nessus"></p>
 <p>En este caso, vamos a elegir Nessus Essentials, ya que es la versión gratuita para uso personal/educativo. La limitación que encontraremos será el número de IPs que se pueden escanear. Nos registramos:</p>
 <p><img src="/images/seguridad/nessus4.png" alt="Nessus"></p>
-<p>Una vez hecho esto, esperamos a que se descarguen todos los pluggins, y a continuación nos aparecerá la pantalla de incio de Nessus.
-<img src="/images/seguridad/nessus5.png" alt="Nessus"></p>
+<p>Una vez hecho esto, esperamos a que se descarguen todos los pluggins, y a continuación nos aparecerá la pantalla de incio de Nessus.</p>
+<p><img src="/images/seguridad/nessus5.png" alt="Nessus"></p>
 <h2 id="primer-escáner">Primer escáner.</h2>
-<p>Si le damos a la opción de nuevo escaneo vemos que hay diversos tipos:
-<img src="/images/seguridad/nessus6.png" alt="Nessus"></p>
+<p>Si le damos a la opción de nuevo escaneo vemos que hay diversos tipos:</p>
+<p><img src="/images/seguridad/nessus6.png" alt="Nessus"></p>
 <h3 id="descubrimiento-de-hosts">Descubrimiento de hosts.</h3>
-<p>El primer escáner que aparece es el de ‘Descubrimiento de host’. Este nos sirve para saber que hosts hay en mi red y es el primer paso para cualquier evaluación de vulnerabilidades.
-<img src="/images/seguridad/nessus7.png" alt="Nessus"></p>
-<p>Al lanzar el escaneo de descubrimiento de hosts, vemos además de que hosts están en nuestra red, su información asociada, como la dirección IP, FQDN, sistemas operativos y puertos abiertos, si está disponible. Después de tener una lista de host, podemos elegir cual escanear:
-<img src="/images/seguridad/nessus8.png" alt="Nessus"></p>
+<p>El primer escáner que aparece es el de ‘Descubrimiento de host’. Este nos sirve para saber que hosts hay en mi red y es el primer paso para cualquier evaluación de vulnerabilidades.</p>
+<p><img src="/images/seguridad/nessus7.png" alt="Nessus"></p>
+<p>Al lanzar el escaneo de descubrimiento de hosts, vemos además de que hosts están en nuestra red, su información asociada, como la dirección IP, FQDN, sistemas operativos y puertos abiertos, si está disponible. Después de tener una lista de host, podemos elegir cual escanear:</p>
+<p><img src="/images/seguridad/nessus8.png" alt="Nessus"></p>
 <p>Si accedemos a la pestaña ‘vulnerabilities’:</p>
 <p><img src="/images/seguridad/nessus9.png" alt="Nessus"></p>
 <p><em>Settings</em>: Proporciona información sobre la configuración del escaneo. No detecta vulnerabilidades, sino que reporta detalles operativos del proceso de escaneo, como las opciones de configuración usadas.  El 5 indica que esto se aplica en los 5 hosts escaneados.</p>
 <p><em>Port scanners</em>: Incluye plugins dedicados al escaneo de puertos para descubrir hosts activos y servicios abiertos. Ejemplos comunes son &ldquo;Nessus SYN Scanner&rdquo; (escaneo TCP SYN para puertos abiertos) o &ldquo;Nessus UDP Scanner&rdquo;. En esencia, Nessus envía paquetes a rangos de puertos para ver si responden, lo que ayuda a confirmar hosts vivos sin una conexión completa. El descubrimiento de hosts en Nessus depende en gran medida de escaneos de puertos (configurados en la sección &ldquo;Network Port Scanners&rdquo; de la política). Aparece como INFO porque reporta los resultados del escaneo de puertos (por ejemplo, puertos abiertos detectados), no vulnerabilidades.
 Este plugin básicamente comprueba si mi host está activo en la red y lo hace mediante ping:</p>
-<pre><code>- Ping ARP: Funciona si el host está en la misma subred local y se usa Ethernet.
-- Ping ICMP: Ping clásico.
-- Ping TCP: Envía un paquete SYN a un puerto del host y espera a un SYN/ACK o RST.
-- Ping UDP: Prueba usando servicios UDP conocidos como DNS, RCP o NTP.
-</code></pre>
+<ul>
+<li>Ping ARP: Funciona si el host está en la misma subred local y se usa Ethernet.</li>
+<li>Ping ICMP: Ping clásico.</li>
+<li>Ping TCP: Envía un paquete SYN a un puerto del host y espera a un SYN/ACK o RST.</li>
+<li>Ping UDP: Prueba usando servicios UDP conocidos como DNS, RCP o NTP.</li>
+</ul>
 <h3 id="escaneo-de-un-host-descubierto">Escaneo de un host descubierto.</h3>
-<p>Si nos vamos a la sección hosts del anterior escaneo, podemos seleccionar que host queremos escanear:
-<img src="/images/seguridad/10.png" alt="Nessus"></p>
+<p>Si nos vamos a la sección hosts del anterior escaneo, podemos seleccionar que host queremos escanear:</p>
+<p><img src="/images/seguridad/10.png" alt="Nessus"></p>
 <p>Se nos abre otra vez la lista de plantillas para seleccionar una. Tenable Nessus llena automáticamente la lista de Targets con los hosts que hemos seleccionado.
-En este caso, vamos a seleccionar ‘Análisis de malware’.
-<img src="/images/seguridad/11.png" alt="Nessus"></p>
+En este caso, vamos a seleccionar ‘Análisis de malware’.</p>
+<p><img src="/images/seguridad/11.png" alt="Nessus"></p>
 <p>Este tipo de escaneo necesita credenciales autenticadas para acceder al interior del host y buscar malware en archivos, registros o procesos. Sin ellas, Nessus no puede hacer un chequeo profundo y falla.
 Lo primero será generar un par de claves en la maquina del servidor:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~/.ssh$ ssh-keygen 
 </span></span><span style="display:flex;"><span>. . . 
 </span></span><span style="display:flex;"><span>nessus@debian:~/.ssh$ ssh-copy-id -i nessus.pub marina@192.168.1.47
-</span></span></code></pre></div><p>A continuación, añadimos credenciales.
-<img src="/images/seguridad/12.png" alt="Nessus">
-<img src="/images/seguridad/13.png" alt="Nessus">
-Guardamos y probamos:
-<img src="/images/seguridad/14.png" alt="Nessus">
-<img src="/images/seguridad/15.png" alt="Nessus"></p>
+</span></span></code></pre></div><p>A continuación, añadimos credenciales.</p>
+<p><img src="/images/seguridad/12.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/13.png" alt="Nessus"></p>
+<p>Guardamos y probamos:</p>
+<p><img src="/images/seguridad/14.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/15.png" alt="Nessus"></p>
 <p>Ahora Nessus hizo un escaneo profundo (leyó directorios como /tmp, chequeó procesos, etc.), no solo superficial.
 Se han detectado un total de 6 vulnerabilidades, todas calificadas como INFO (informativas, no críticas). En un escaneo de malware esto es común si no hay amenazas reales.
 Port scanners: Nos da información de que puertos están abiertos. Nessus usa SSH para ejecutar comandos como netstat o ss directamente en mi máquina. No es una vulnerabilidad real, solo información sobre los puertos que están escuchando.
@@ -225,20 +226,20 @@ Puertos detectados:</p>
 </span></span></code></pre></div><p>El resto de vulnerabilidades que aparecen en la lista nos proporcionan información como el hostname de la máquina, el FQDN.</p>
 <h2 id="alertas-por-correo-electrónico">Alertas por correo electrónico.</h2>
 <p>Nuestro objetivo es configurar alertas automáticas que nos lleguen directamente al correo electrónico.
-Voy a usar Postfix para configurar el servidor de correo de Nessus. Para empezar Vamos a configurar la cerificación en dos pasos de nuestro correo:
-<img src="/images/seguridad/16.png" alt="Nessus">
-Al meternos en ‘Gestionar tu cuenta de Google’, se nos abre una pestaña, donde nos podemos meter en el apartado de seguridad:
-<img src="/images/seguridad/17.png" alt="Nessus">
-Una vez activada, vamos al buscador e introducimos ‘contraseña de aplicaciones’:
-<img src="/images/seguridad/18.png" alt="Nessus">
-<img src="/images/seguridad/19.png" alt="Nessus">
-<img src="/images/seguridad/20.png" alt="Nessus">
-Nos genera una contraseña. Ahora instalamos postfix y lo configuramos:</p>
+Voy a usar Postfix para configurar el servidor de correo de Nessus. Para empezar Vamos a configurar la cerificación en dos pasos de nuestro correo:</p>
+<p><img src="/images/seguridad/16.png" alt="Nessus"></p>
+<p>Al meternos en ‘Gestionar tu cuenta de Google’, se nos abre una pestaña, donde nos podemos meter en el apartado de seguridad:</p>
+<p><img src="/images/seguridad/17.png" alt="Nessus"></p>
+<p>Una vez activada, vamos al buscador e introducimos ‘contraseña de aplicaciones’:</p>
+<p><img src="/images/seguridad/18.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/19.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/20.png" alt="Nessus"></p>
+<p>Nos genera una contraseña. Ahora instalamos postfix y lo configuramos:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo apt install postfix -y
-</span></span></code></pre></div><p><img src="/images/seguridad/21.png" alt="Nessus">
-En este apartado introducimos el FQDN de nuestra máquina.
-<img src="/images/seguridad/22.png" alt="Nessus">
-Una vez instalado podemos proceder a configurarlo, para ello modificaremos el archivo:</p>
+</span></span></code></pre></div><p><img src="/images/seguridad/21.png" alt="Nessus"></p>
+<p>En este apartado introducimos el FQDN de nuestra máquina.</p>
+<p><img src="/images/seguridad/22.png" alt="Nessus"></p>
+<p>Una vez instalado podemos proceder a configurarlo, para ello modificaremos el archivo:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GNU nano 8.4                  /etc/postfix/main.cf   
 </span></span><span style="display:flex;"><span>  GNU nano 8.4                                                                                                                                                                                                                                                                                                                                                                                                                                                                          /etc/postfix/main.cf *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># ==========================</span>
@@ -335,9 +336,9 @@ Guardamos el archivo y le cambiamos los permisos:</p>
 </span></span></code></pre></div><p>postmap es para convertir el archivo en un formato de base de datos que Postfix puede leer.
 Reiniciamos postfix:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nessus@debian:~$ sudo systemctl restart postfix
-</span></span></code></pre></div><p>Ahora pasamos a configurar el SMTP de nessus:
-<img src="/images/seguridad/23.png" alt="Nessus">
-En el host tenemos que poner el nombre de nuestro host, ya que si ponemos localhost nos da un error. Para ello debemos hacer el siguiente cambio en el /etc/hosts:</p>
+</span></span></code></pre></div><p>Ahora pasamos a configurar el SMTP de nessus:</p>
+<p><img src="/images/seguridad/23.png" alt="Nessus"></p>
+<p>En el host tenemos que poner el nombre de nuestro host, ya que si ponemos localhost nos da un error. Para ello debemos hacer el siguiente cambio en el /etc/hosts:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> GNU nano 8.4                           /etc/hosts                                    
 </span></span><span style="display:flex;"><span>127.0.0.1       nessus.org
 </span></span><span style="display:flex;"><span>. . .
@@ -346,43 +347,43 @@ En el correo debemos poner el que usamos en ‘/etc/postfix/sasl_passwd’.
 Como Nessus habla con Postfix local, en encryption vamos a seleccionar NONE.
 Hostname sirve para los enalces dentro de los emails.
 En auth method no ponemos nada, ya que Postfix acepta mensajes desde localhost sin credenciales.
-A continuación, he programado un nuevo escáner que se ha ejecutado, y al que he configurado para que cuando termine me notifique por correo.
-<img src="/images/seguridad/24.png" alt="Nessus"></p>
-<p>Una vez finalizado el escáner, comprobamos nuestro correo:
-<img src="/images/seguridad/25.png" alt="Nessus"></p>
+A continuación, he programado un nuevo escáner que se ha ejecutado, y al que he configurado para que cuando termine me notifique por correo.</p>
+<p><img src="/images/seguridad/24.png" alt="Nessus"></p>
+<p>Una vez finalizado el escáner, comprobamos nuestro correo:</p>
+<p><img src="/images/seguridad/25.png" alt="Nessus"></p>
 <p>El escaneo evalúa los servicios y puertos abiertos del equipo, identificando posibles fallos de configuración, software desactualizado y debilidades de seguridad que podrían ser explotadas por un atacante.
 Nessus analiza estos elementos mediante plugins especializados, los cuales comparan las versiones de los servicios detectados con bases de datos de vulnerabilidades conocidas.
 En este caso, el informe muestra un resumen con las vulnerabilidades más graves encontradas, clasificadas por nivel de severidad (Crítica, Alta, Media, Baja e Informativa).</p>
 <h2 id="prueba-de-uso-en-red">Prueba de uso en red.</h2>
 <p>Para hacer una prueba de uso en red, vamos a seleccionar varios hosts que me han aparecido en un nuevo escaneo de descubrimiento de hosts. He creado varias máquinas virtuales para poder ejecutar el escáner con credenciales SSH y poder realizarlo completo.</p>
-<p><img src="/images/seguridad/26.png" alt="Nessus">
-Copiamos la clave publica en las tres máquinas y creamos un escáner nuevo como hemos hecho anteriormente.
-Vamos a elegir el siguiente escáner:
-<img src="/images/seguridad/27.png" alt="Nessus">
-Y configuramos:
-<img src="/images/seguridad/28.png" alt="Nessus">
-<img src="/images/seguridad/29.png" alt="Nessus"></p>
-<p>En el apartado “Dynamic Pluggins” podemos especificar la ID de vulnerabilidad que queremos que el escaneo busque.
-<img src="/images/seguridad/30.png" alt="Nessus">
-Esta ID es una vulnerabilidad conocida en Log4j que permite la ejecución remota de un código. Como podemos ver Nessus tiene pluggins dedicados para detectarla. Guardamos y lanzamos el escaneo.
-En la pestaña ‘schedule’ vamos a programarlo:
-<img src="/images/seguridad/31.png" alt="Nessus">
-Nessus Essentials solo permite una única programación.
-En la opción ‘Targets to prioritize credentials’ ponemos la ip de los hosts. Esto agiliza el proceso ya que no las busca, sino que se las indicamos.
-<img src="/images/seguridad/32.png" alt="Nessus">
-Lo ideal sería programar también un escáner de puertos para saber que puertos están en la red.
-Como en mi red no hay vulnerabilidades, solo nos da datos informativos:
-<img src="/images/seguridad/33.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/26.png" alt="Nessus"></p>
+<p>Copiamos la clave publica en las tres máquinas y creamos un escáner nuevo como hemos hecho anteriormente.
+Vamos a elegir el siguiente escáner:</p>
+<p><img src="/images/seguridad/27.png" alt="Nessus"></p>
+<p>Y configuramos:</p>
+<p><img src="/images/seguridad/28.png" alt="Nessus"></p>
+<p><img src="/images/seguridad/29.png" alt="Nessus"></p>
+<p>En el apartado “Dynamic Pluggins” podemos especificar la ID de vulnerabilidad que queremos que el escaneo busque.</p>
+<p><img src="/images/seguridad/30.png" alt="Nessus"></p>
+<p>Esta ID es una vulnerabilidad conocida en Log4j que permite la ejecución remota de un código. Como podemos ver Nessus tiene pluggins dedicados para detectarla. Guardamos y lanzamos el escaneo.
+En la pestaña ‘schedule’ vamos a programarlo:</p>
+<p><img src="/images/seguridad/31.png" alt="Nessus"></p>
+<p>Nessus Essentials solo permite una única programación.
+En la opción ‘Targets to prioritize credentials’ ponemos la ip de los hosts. Esto agiliza el proceso ya que no las busca, sino que se las indicamos.</p>
+<p><img src="/images/seguridad/32.png" alt="Nessus"></p>
+<p>Lo ideal sería programar también un escáner de puertos para saber que puertos están en la red.
+Como en mi red no hay vulnerabilidades, solo nos da datos informativos:</p>
+<p><img src="/images/seguridad/33.png" alt="Nessus"></p>
 <h2 id="escáner-a-máquina-metasploitable">Escáner a máquina metasploitable.</h2>
-<p>Mediante un escáner de DiscoveryHost encontramos la ip de nuestra metaspoitable:
-<img src="/images/seguridad/34.png" alt="Nessus">
-Una vez tenemos la dirección, lanzamos un nuevo escáner para ver las vulnerabilidades. Configuramos servidor de correo, pluggins que no hacen falta los desactivamos para no cargar tanto el escáner y que sea más rápido:
-<img src="/images/seguridad/35.png" alt="Nessus">
-Si accedemos a las vulnerabilidades, nos aparece un informe:
-<img src="/images/seguridad/36.png" alt="Nessus"></p>
+<p>Mediante un escáner de DiscoveryHost encontramos la ip de nuestra metaspoitable:</p>
+<p><img src="/images/seguridad/34.png" alt="Nessus"></p>
+<p>Una vez tenemos la dirección, lanzamos un nuevo escáner para ver las vulnerabilidades. Configuramos servidor de correo, pluggins que no hacen falta los desactivamos para no cargar tanto el escáner y que sea más rápido:</p>
+<p><img src="/images/seguridad/35.png" alt="Nessus"></p>
+<p>Si accedemos a las vulnerabilidades, nos aparece un informe:</p>
+<p><img src="/images/seguridad/36.png" alt="Nessus"></p>
 <h3 id="informe">Informe.</h3>
-<p>Podemos exportar los informes del escáner.
-<img src="/images/seguridad/37.png" alt="Nessus"></p>
+<p>Podemos exportar los informes del escáner.</p>
+<p><img src="/images/seguridad/37.png" alt="Nessus"></p>
 <p>Nos genera informes según clasifica las vulnerabilidades.
 Entre las más destacadas aparecen:</p>
 <ul>
@@ -390,13 +391,13 @@ Entre las más destacadas aparecen:</p>
 <li>Protocolos SSL 2.0 y 3.0 activos, que ya no son seguros y deben deshabilitarse.</li>
 <li>Vulnerabilidad “Ghostcat” en Apache Tomcat, que permite la inyección de peticiones a través del conector AJP.</li>
 <li>Puerta trasera detectada (Bind Shell Backdoor) que indica una posible intrusión.</li>
-<li>Sistema operativo Ubuntu 8.04.x sin soporte (EoL), lo que lo hace vulnerable al no recibir actualizaciones.
-El host analizado (192.168.122.247) presenta un total de 172 vulnerabilidades, de las cuales 10 son críticas. El informe también incluye un apartado de remediaciones sugeridas, donde se recomiendan acciones para mitigar los riesgos detectados, como actualizar servicios (BIND, Samba), eliminar software malicioso o reinstalar aplicaciones comprometidas. En conjunto, este informe proporciona una visión general del estado de seguridad del sistema, permitiendo priorizar las correcciones necesarias para reducir la superficie de ataque.
-Escaneo por pluggin:</li>
+<li>Sistema operativo Ubuntu 8.04.x sin soporte (EoL), lo que lo hace vulnerable al no recibir actualizaciones.</li>
 </ul>
+<p>El host analizado (192.168.122.247) presenta un total de 172 vulnerabilidades, de las cuales 10 son críticas. El informe también incluye un apartado de remediaciones sugeridas, donde se recomiendan acciones para mitigar los riesgos detectados, como actualizar servicios (BIND, Samba), eliminar software malicioso o reinstalar aplicaciones comprometidas. En conjunto, este informe proporciona una visión general del estado de seguridad del sistema, permitiendo priorizar las correcciones necesarias para reducir la superficie de ataque.
+Escaneo por pluggin:</p>
 <p><img src="/images/seguridad/38.png" alt="Nessus"></p>
-<p>Escaneo por hots:
-<img src="/images/seguridad/39.png" alt="Nessus"></p>
+<p>Escaneo por hots:</p>
+<p><img src="/images/seguridad/39.png" alt="Nessus"></p>
 
             </div>
         </article>

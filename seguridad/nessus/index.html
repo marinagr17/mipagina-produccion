@@ -159,7 +159,7 @@ evaluaciones de vulnerabilidades de alta velocidad y en profundidad sin costo, a
 con algunas limitaciones en comparación con las versiones de pago.</p>
 <h2 id="instalación-y-configuración-inicial">Instalación y configuración inicial.</h2>
 <p>Para descargarnos el paquete nos vamos a la página de <a href="https://www.tenable.com/downloads/nessus?loginAttempted=true">Nessus</a>:</p>
-<p>(static/images/seguridad/nessus1.png)</p>
+<p>(/images/seguridad/nessus1.png)</p>
 <p>Una vez que tenemos el .deb lo instalamos con dpkg:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debian@marina:~$ sudo dpkg -i Nessus-10.9.4.deb
 </span></span></code></pre></div><p>Activamos el servicio y comprobamos que escucha por el puerto 8834 que es el de
@@ -169,13 +169,13 @@ nessus:</p>
 </span></span><span style="display:flex;"><span>tcp   LISTEN <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">1024</span>                              0.0.0.0:8834      0.0.0.0:*    users:<span style="color:#f92672">((</span><span style="color:#e6db74">&#34;nessusd&#34;</span>,pid<span style="color:#f92672">=</span>1423,fd<span style="color:#f92672">=</span>18<span style="color:#f92672">))</span>                                                
 </span></span><span style="display:flex;"><span>tcp   LISTEN <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">1024</span>                                 <span style="color:#f92672">[</span>::<span style="color:#f92672">]</span>:8834 <span style="color:#f92672">[</span>::<span style="color:#f92672">]</span>:*    users:<span style="color:#f92672">((</span><span style="color:#e6db74">&#34;nessusd&#34;</span>,pid<span style="color:#f92672">=</span>1423,fd<span style="color:#f92672">=</span>19<span style="color:#f92672">))</span>
 </span></span></code></pre></div><p>Nos vamos al navegador para poder configurar Nessus:</p>
-<p>(static/images/seguridad/nessus2.png)</p>
+<p>(/images/seguridad/nessus2.png)</p>
 <p>A continuación, nos ofrece una serie de opciones:
-(static/images/seguridad/nessus3.png)</p>
+(/images/seguridad/nessus3.png)</p>
 <p>En este caso, vamos a elegir Nessus Essentials, ya que es la versión gratuita para uso personal/educativo. La limitación que encontraremos será el número de IPs que se pueden escanear. Nos registramos:</p>
-<p>(static/images/seguridad/nessus4.png)</p>
+<p>(/images/seguridad/nessus4.png)</p>
 <p>Una vez hecho esto, esperamos a que se descarguen todos los pluggins, y a continuación nos aparecerá la pantalla de incio de Nessus.
-(static/images/seguridad/nessus5.png)</p>
+(/images/seguridad/nessus5.png)</p>
 
             </div>
         </article>

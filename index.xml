@@ -6,8 +6,15 @@
     <description>Recent content in Mi Diario ASIR on Ping a Marina</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Fri, 17 Oct 2025 20:48:24 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 30 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://pingamarina.vercel.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prueba: Introducción a la implantación de aplicaciones web</title>
+      <link>https://pingamarina.vercel.app/prueba/prueba/</link>
+      <pubDate>Thu, 30 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://pingamarina.vercel.app/prueba/prueba/</guid>
+      <description>&lt;p&gt;Marina Gracia Ontanilla&#xA;2025-10-30&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://pingamarina.vercel.app/images/foto1.jpg&#34; alt=&#34;Yo&#34;&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Nessus Essentials</title>
       <link>https://pingamarina.vercel.app/seguridad/nessus/</link>

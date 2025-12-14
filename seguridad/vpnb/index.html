@@ -149,23 +149,22 @@ Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente
 <h2 id="arquitectura-del-escenario">Arquitectura del Escenario</h2>
 <p><strong>Objetivo:</strong> Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.</p>
 <h3 id="topología-de-red">Topología de Red</h3>
-<pre class="mermaid">NAT1 (10.99.80.2/24)
-  ↓
-Router r1 (10.50.50.1/24)
-  ↓
-Cliente1 (10.50.50.2/24)
-
-Servidor VPN
-  - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24
-  - Red VPN interna: 10.99.99.0/24
-
-NAT2 (10.99.70.2/24)
-  ↓
-Router r2 (10.60.60.1/24)
-  ↓
-Cliente2 (10.60.60.2/24)
-</pre>
-<h3 id="máquinas-en-el-escenario">Máquinas en el Escenario</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>NAT1 <span style="color:#f92672">(</span>10.99.80.2/24<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ↓
+</span></span><span style="display:flex;"><span>Router r1 <span style="color:#f92672">(</span>10.50.50.1/24<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ↓
+</span></span><span style="display:flex;"><span>Cliente1 <span style="color:#f92672">(</span>10.50.50.2/24<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Servidor VPN
+</span></span><span style="display:flex;"><span>  - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24
+</span></span><span style="display:flex;"><span>  - Red VPN interna: 10.99.99.0/24
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAT2 <span style="color:#f92672">(</span>10.99.70.2/24<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ↓
+</span></span><span style="display:flex;"><span>Router r2 <span style="color:#f92672">(</span>10.60.60.1/24<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  ↓
+</span></span><span style="display:flex;"><span>Cliente2 <span style="color:#f92672">(</span>10.60.60.2/24<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="máquinas-en-el-escenario">Máquinas en el Escenario</h3>
 <ul>
 <li><strong>Servidor</strong>: Máquina central que ejecuta el servidor OpenVPN</li>
 <li><strong>NAT1</strong>: Gateway con acceso a Internet para el sitio 1</li>
@@ -648,8 +647,8 @@ route 10.50.50.0 255.255.255.0
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod +x /usr/local/bin/vpn-monitor.sh
 </span></span><span style="display:flex;"><span>sudo crontab -e
 </span></span></code></pre></div><p>Añadir:</p>
-<pre tabindex="0"><code class="language-cron" data-lang="cron">*/5 * * * * /usr/local/bin/vpn-monitor.sh
-</code></pre><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*/5 * * * * /usr/local/bin/vpn-monitor.sh
+</span></span></code></pre></div><hr>
 <h2 id="resumen-de-comandos-importantes">Resumen de Comandos Importantes</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Servidor VPN</span>
 </span></span><span style="display:flex;"><span>sudo systemctl restart openvpn-server@server
@@ -704,30 +703,6 @@ route 10.50.50.0 255.255.255.0
 
 
 
-
-<script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
-    const settings = localStorage.getItem("theme") === "dark" ?
-        {
-            startOnLoad: true,
-            theme: "dark",
-            darkMode: true,
-            themeVariables: {
-                tertiaryColor: "#dee3ed"
-            }
-        }
-        :
-        {
-            startOnLoad: true,
-            theme: "base",
-            darkMode: false,
-            themeVariables: {
-                tertiaryColor: "#dee3ed"
-            }
-        }
-    ;
-    mermaid.initialize(settings);
-</script>
 
     </body>
 </html>

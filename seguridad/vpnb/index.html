@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor
+" />
+<meta name="keywords" content="homepage, blog, informatica, redes" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://pingamarina.vercel.app/seguridad/vpnb/" />
+
+
+    <title>
+        
+             :: Ping a Marina 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/main.min.244183cde1a38e0b08f82c11791181288f9aac1cc9618cd6f4e9e7710c5768ba.css" integrity="sha256-JEGDzeGjjgsI&#43;CwReRGBKI&#43;arBzJYYzW9OnncQxXaLo=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Ping a Marina">
+  <meta itemprop="description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
+  <meta itemprop="wordCount" content="1717">
+  <meta itemprop="image" content="https://pingamarina.vercel.app/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pingamarina.vercel.app/">
+  <meta name="twitter:title" content="Ping a Marina">
+  <meta name="twitter:description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
+
+
+
+    <meta property="og:url" content="https://pingamarina.vercel.app/seguridad/vpnb/">
+  <meta property="og:site_name" content="Ping a Marina">
+  <meta property="og:title" content="Ping a Marina">
+  <meta property="og:description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
+  <meta property="og:locale" content="es">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="seguridad">
+    <meta property="og:image" content="https://pingamarina.vercel.app/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                Inicio</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/bbdd">Bases de Datos</a></li><li><a href="/prueba">Prueba</a></li><li><a href="/redes">Redes y Virtualización</a></li><li><a href="/seguridad">Seguridad</a></li><li><a href="/sistemas">Administración de Sistemas</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://pingamarina.vercel.app/seguridad/vpnb/"></a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <h1 id="configuración-openvpn-site-to-site">Configuración OpenVPN Site-to-Site</h1>
+<h2 id="arquitectura-del-escenario">Arquitectura del Escenario</h2>
+<p><strong>Objetivo:</strong> Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.</p>
+<h3 id="topología-de-red">Topología de Red</h3>
+<pre class="mermaid">NAT1 (10.99.80.2/24)
+  ↓
+Router r1 (10.50.50.1/24)
+  ↓
+Cliente1 (10.50.50.2/24)
+
+Servidor VPN
+  - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24
+  - Red VPN interna: 10.99.99.0/24
+
+NAT2 (10.99.70.2/24)
+  ↓
+Router r2 (10.60.60.1/24)
+  ↓
+Cliente2 (10.60.60.2/24)
+</pre>
+<h3 id="máquinas-en-el-escenario">Máquinas en el Escenario</h3>
+<ul>
+<li><strong>Servidor</strong>: Máquina central que ejecuta el servidor OpenVPN</li>
+<li><strong>NAT1</strong>: Gateway con acceso a Internet para el sitio 1</li>
+<li><strong>r1</strong>: Router del sitio 1 (cliente OpenVPN)</li>
+<li><strong>Cliente1</strong>: Máquina final del sitio 1</li>
+<li><strong>NAT2</strong>: Gateway con acceso a Internet para el sitio 2</li>
+<li><strong>r2</strong>: Router del sitio 2 (cliente OpenVPN)</li>
+<li><strong>Cliente2</strong>: Máquina final del sitio 2</li>
+</ul>
+<hr>
+<h2 id="fase-1-preparación-del-servidor-vpn">FASE 1: Preparación del Servidor VPN</h2>
+<blockquote>
+<p><strong>🖥️ MÁQUINA: Servidor</strong></p></blockquote>
+<h3 id="11-instalación-de-openvpn-y-easy-rsa">1.1 Instalación de OpenVPN y Easy-RSA</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install openvpn easy-rsa -y
+</span></span></code></pre></div><h3 id="12-configuración-de-la-pki-infraestructura-de-clave-pública">1.2 Configuración de la PKI (Infraestructura de Clave Pública)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Crear directorio para Easy-RSA</span>
+</span></span><span style="display:flex;"><span>make-cadir ~/openvpn-ca
+</span></span><span style="display:flex;"><span>cd ~/openvpn-ca
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Editar variables (opcional pero recomendado)</span>
+</span></span><span style="display:flex;"><span>nano vars
+</span></span></code></pre></div><p>Modifica estos campos en el archivo <code>vars</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set_var EASYRSA_REQ_COUNTRY    <span style="color:#e6db74">&#34;ES&#34;</span>
+</span></span><span style="display:flex;"><span>set_var EASYRSA_REQ_PROVINCE   <span style="color:#e6db74">&#34;Aragon&#34;</span>
+</span></span><span style="display:flex;"><span>set_var EASYRSA_REQ_CITY       <span style="color:#e6db74">&#34;Zaragoza&#34;</span>
+</span></span><span style="display:flex;"><span>set_var EASYRSA_REQ_ORG        <span style="color:#e6db74">&#34;MiEmpresa&#34;</span>
+</span></span><span style="display:flex;"><span>set_var EASYRSA_REQ_EMAIL      <span style="color:#e6db74">&#34;admin@miempresa.com&#34;</span>
+</span></span><span style="display:flex;"><span>set_var EASYRSA_REQ_OU         <span style="color:#e6db74">&#34;IT&#34;</span>
+</span></span></code></pre></div><h3 id="13-generar-certificados">1.3 Generar Certificados</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Inicializar PKI</span>
+</span></span><span style="display:flex;"><span>./easyrsa init-pki
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Crear CA (Autoridad Certificadora)</span>
+</span></span><span style="display:flex;"><span>./easyrsa build-ca nopass
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nombre sugerido: servidor-vpn-ca</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generar certificado y clave del servidor</span>
+</span></span><span style="display:flex;"><span>./easyrsa build-server-full servidor nopass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generar certificados para los sitios remotos</span>
+</span></span><span style="display:flex;"><span>./easyrsa build-client-full sitio1 nopass
+</span></span><span style="display:flex;"><span>./easyrsa build-client-full sitio2 nopass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generar parámetros Diffie-Hellman</span>
+</span></span><span style="display:flex;"><span>./easyrsa gen-dh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generar clave TLS (seguridad adicional)</span>
+</span></span><span style="display:flex;"><span>openvpn --genkey secret ta.key
+</span></span></code></pre></div><h3 id="14-copiar-certificados-al-directorio-de-openvpn">1.4 Copiar Certificados al Directorio de OpenVPN</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo mkdir -p /etc/openvpn/server/keys
+</span></span><span style="display:flex;"><span>sudo cp pki/ca.crt /etc/openvpn/server/keys/
+</span></span><span style="display:flex;"><span>sudo cp pki/issued/servidor.crt /etc/openvpn/server/keys/
+</span></span><span style="display:flex;"><span>sudo cp pki/private/servidor.key /etc/openvpn/server/keys/
+</span></span><span style="display:flex;"><span>sudo cp pki/dh.pem /etc/openvpn/server/keys/
+</span></span><span style="display:flex;"><span>sudo cp ta.key /etc/openvpn/server/keys/
+</span></span></code></pre></div><hr>
+<h2 id="fase-2-configuración-del-servidor-openvpn">FASE 2: Configuración del Servidor OpenVPN</h2>
+<blockquote>
+<p><strong>🖥️ MÁQUINA: Servidor</strong></p></blockquote>
+<h3 id="21-crear-archivo-de-configuración-del-servidor">2.1 Crear Archivo de Configuración del Servidor</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/openvpn/server/server.conf
+</span></span></code></pre></div><p>Contenido del archivo:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># Puerto y protocolo
+port 1194
+proto udp
+dev tun
+
+# Certificados y claves
+ca /etc/openvpn/server/keys/ca.crt
+cert /etc/openvpn/server/keys/servidor.crt
+key /etc/openvpn/server/keys/servidor.key
+dh /etc/openvpn/server/keys/dh.pem
+tls-auth /etc/openvpn/server/keys/ta.key 0
+
+# Red del túnel VPN
+server 10.99.99.0 255.255.255.0
+topology subnet
+
+# Permitir comunicación entre clientes
+client-to-client
+
+# Rutas para las redes remotas
+push &#34;route 10.50.50.0 255.255.255.0&#34;
+push &#34;route 10.60.60.0 255.255.255.0&#34;
+
+# Directorio para configuraciones específicas por cliente
+client-config-dir /etc/openvpn/server/ccd
+
+# Rutas internas (necesario para site-to-site)
+route 10.50.50.0 255.255.255.0
+route 10.60.60.0 255.255.255.0
+
+# Mantener conexión activa
+keepalive 10 120
+
+# Compresión
+compress lz4-v2
+push &#34;compress lz4-v2&#34;
+
+# Cifrado
+cipher AES-256-GCM
+auth SHA256
+
+# Usuario y grupo (seguridad)
+user nobody
+group nogroup
+
+# Persistencia
+persist-key
+persist-tun
+
+# Logs
+status /var/log/openvpn/openvpn-status.log
+log-append /var/log/openvpn/openvpn.log
+verb 3
+
+# Notificaciones duplicadas
+explicit-exit-notify 1
+</code></pre><h3 id="22-crear-configuraciones-específicas-por-cliente-ccd">2.2 Crear Configuraciones Específicas por Cliente (CCD)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo mkdir -p /etc/openvpn/server/ccd
+</span></span></code></pre></div><p><strong>Para sitio1 (Cliente1):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/openvpn/server/ccd/sitio1
+</span></span></code></pre></div><p>Contenido:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">iroute 10.50.50.0 255.255.255.0
+ifconfig-push 10.99.99.10 255.255.255.0
+</code></pre><p><strong>Para sitio2 (Cliente2):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/openvpn/server/ccd/sitio2
+</span></span></code></pre></div><p>Contenido:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">iroute 10.60.60.0 255.255.255.0
+ifconfig-push 10.99.99.20 255.255.255.0
+</code></pre><h3 id="23-habilitar-ip-forwarding">2.3 Habilitar IP Forwarding</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Editar sysctl</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/sysctl.conf
+</span></span></code></pre></div><p>Descomentar o añadir:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">net.ipv4.ip_forward=1
+</code></pre><p>Aplicar cambios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo sysctl -p
+</span></span></code></pre></div><h3 id="24-configurar-firewall-ufw">2.4 Configurar Firewall (UFW)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Permitir tráfico OpenVPN</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow 1194/udp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configurar NAT para el túnel</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/ufw/before.rules
+</span></span></code></pre></div><p>Añadir antes de las reglas <code>*filter</code>:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+# Forward traffic from OpenVPN to eth0
+-A POSTROUTING -s 10.99.99.0/24 -o ens6 -j MASQUERADE
+COMMIT
+</code></pre><p>Reiniciar UFW:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo ufw disable
+</span></span><span style="display:flex;"><span>sudo ufw enable
+</span></span></code></pre></div><h3 id="25-crear-directorio-de-logs">2.5 Crear Directorio de Logs</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo mkdir -p /var/log/openvpn
+</span></span></code></pre></div><h3 id="26-iniciar-y-habilitar-el-servicio">2.6 Iniciar y Habilitar el Servicio</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo systemctl start openvpn-server@server
+</span></span><span style="display:flex;"><span>sudo systemctl enable openvpn-server@server
+</span></span><span style="display:flex;"><span>sudo systemctl status openvpn-server@server
+</span></span></code></pre></div><hr>
+<h2 id="fase-3-configuración-del-sitio-1-router-r1">FASE 3: Configuración del Sitio 1 (Router r1)</h2>
+<h3 id="31-transferir-certificados-al-router-r1">3.1 Transferir Certificados al Router r1</h3>
+<p>Desde el servidor VPN:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Crear paquete de certificados</span>
+</span></span><span style="display:flex;"><span>cd ~/openvpn-ca
+</span></span><span style="display:flex;"><span>tar czf sitio1-certs.tar.gz <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/ca.crt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/issued/sitio1.crt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/private/sitio1.key <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    ta.key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Transferir (ajustar IP y usuario según tu router)</span>
+</span></span><span style="display:flex;"><span>scp sitio1-certs.tar.gz usuario@10.99.80.1:/tmp/
+</span></span></code></pre></div><p>En el router r1:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Descomprimir y mover certificados</span>
+</span></span><span style="display:flex;"><span>cd /tmp
+</span></span><span style="display:flex;"><span>tar xzf sitio1-certs.tar.gz
+</span></span><span style="display:flex;"><span>sudo mkdir -p /etc/openvpn/client
+</span></span><span style="display:flex;"><span>sudo mv pki/ca.crt /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv pki/issued/sitio1.crt /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv pki/private/sitio1.key /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv ta.key /etc/openvpn/client/
+</span></span></code></pre></div><h3 id="32-crear-configuración-del-cliente">3.2 Crear Configuración del Cliente</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/openvpn/client/sitio1.conf
+</span></span></code></pre></div><p>Contenido:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># Cliente
+client
+dev tun
+proto udp
+
+# Servidor remoto (IP pública del servidor VPN)
+remote 5.168.1.100 1194
+
+# Resolver DNS infinitamente
+resolv-retry infinite
+
+# No bind a puerto local específico
+nobind
+
+# Persistencia
+persist-key
+persist-tun
+
+# Certificados
+ca /etc/openvpn/client/ca.crt
+cert /etc/openvpn/client/sitio1.crt
+key /etc/openvpn/client/sitio1.key
+tls-auth /etc/openvpn/client/ta.key 1
+
+# Cifrado (debe coincidir con el servidor)
+cipher AES-256-GCM
+auth SHA256
+
+# Compresión
+compress lz4-v2
+
+# Verificar certificado del servidor
+remote-cert-tls server
+
+# Logs
+verb 3
+
+# Rutas para alcanzar la red remota
+route 10.60.60.0 255.255.255.0
+</code></pre><h3 id="33-habilitar-ip-forwarding-en-r1">3.3 Habilitar IP Forwarding en r1</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/sysctl.conf
+</span></span></code></pre></div><p>Añadir:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">net.ipv4.ip_forward=1
+</code></pre><p>Aplicar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo sysctl -p
+</span></span></code></pre></div><h3 id="34-configurar-enrutamiento-estático-en-r1">3.4 Configurar Enrutamiento Estático en r1</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ruta para que Cliente1 pueda alcanzar Cliente2</span>
+</span></span><span style="display:flex;"><span>sudo ip route add 10.60.60.0/24 via 10.200.0.1 dev tun0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Para hacer permanente (añadir a /etc/network/interfaces o usar scripts)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;post-up ip route add 10.60.60.0/24 via 10.200.0.1 dev tun0&#34;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    sudo tee -a /etc/network/interfaces
+</span></span></code></pre></div><h3 id="35-iniciar-cliente-openvpn">3.5 Iniciar Cliente OpenVPN</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start openvpn-client@sitio1
+</span></span><span style="display:flex;"><span>sudo systemctl enable openvpn-client@sitio1
+</span></span><span style="display:flex;"><span>sudo systemctl status openvpn-client@sitio1
+</span></span></code></pre></div><hr>
+<h2 id="fase-4-configuración-del-sitio-2-router-r2">FASE 4: Configuración del Sitio 2 (Router r2)</h2>
+<h3 id="41-transferir-certificados-al-router-r2">4.1 Transferir Certificados al Router r2</h3>
+<p>Desde el servidor VPN:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/openvpn-ca
+</span></span><span style="display:flex;"><span>tar czf sitio2-certs.tar.gz <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/ca.crt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/issued/sitio2.crt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pki/private/sitio2.key <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    ta.key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scp sitio2-certs.tar.gz usuario@10.99.70.1:/tmp/
+</span></span></code></pre></div><p>En el router r2:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /tmp
+</span></span><span style="display:flex;"><span>tar xzf sitio2-certs.tar.gz
+</span></span><span style="display:flex;"><span>sudo mkdir -p /etc/openvpn/client
+</span></span><span style="display:flex;"><span>sudo mv pki/ca.crt /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv pki/issued/sitio2.crt /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv pki/private/sitio2.key /etc/openvpn/client/
+</span></span><span style="display:flex;"><span>sudo mv ta.key /etc/openvpn/client/
+</span></span></code></pre></div><h3 id="42-crear-configuración-del-cliente">4.2 Crear Configuración del Cliente</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/openvpn/client/sitio2.conf
+</span></span></code></pre></div><p>Contenido:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">client
+dev tun
+proto udp
+remote 5.168.1.102 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+
+ca /etc/openvpn/client/ca.crt
+cert /etc/openvpn/client/sitio2.crt
+key /etc/openvpn/client/sitio2.key
+tls-auth /etc/openvpn/client/ta.key 1
+
+cipher AES-256-GCM
+auth SHA256
+compress lz4-v2
+remote-cert-tls server
+
+verb 3
+
+# Ruta para alcanzar la red remota
+route 10.50.50.0 255.255.255.0
+</code></pre><h3 id="43-habilitar-ip-forwarding-en-r2">4.3 Habilitar IP Forwarding en r2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/sysctl.conf
+</span></span></code></pre></div><p>Añadir:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">net.ipv4.ip_forward=1
+</code></pre><p>Aplicar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo sysctl -p
+</span></span></code></pre></div><h3 id="44-configurar-enrutamiento-estático-en-r2">4.4 Configurar Enrutamiento Estático en r2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ip route add 10.50.50.0/24 via 10.200.0.1 dev tun0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hacer permanente</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;post-up ip route add 10.50.50.0/24 via 10.200.0.1 dev tun0&#34;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    sudo tee -a /etc/network/interfaces
+</span></span></code></pre></div><h3 id="45-iniciar-cliente-openvpn">4.5 Iniciar Cliente OpenVPN</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start openvpn-client@sitio2
+</span></span><span style="display:flex;"><span>sudo systemctl enable openvpn-client@sitio2
+</span></span><span style="display:flex;"><span>sudo systemctl status openvpn-client@sitio2
+</span></span></code></pre></div><hr>
+<h2 id="fase-5-verificación-y-pruebas">FASE 5: Verificación y Pruebas</h2>
+<h3 id="51-verificar-estado-de-las-conexiones">5.1 Verificar Estado de las Conexiones</h3>
+<p><strong>En el Servidor VPN:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ver estado</span>
+</span></span><span style="display:flex;"><span>sudo systemctl status openvpn-server@server
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ver log</span>
+</span></span><span style="display:flex;"><span>sudo tail -f /var/log/openvpn/openvpn.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ver clientes conectados</span>
+</span></span><span style="display:flex;"><span>sudo cat /var/log/openvpn/openvpn-status.log
+</span></span></code></pre></div><p><strong>En Router r1 y r2:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verificar estado</span>
+</span></span><span style="display:flex;"><span>sudo systemctl status openvpn-client@sitio1  <span style="color:#75715e"># o sitio2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ver interfaz tun</span>
+</span></span><span style="display:flex;"><span>ip addr show tun0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ver rutas</span>
+</span></span><span style="display:flex;"><span>ip route | grep tun
+</span></span></code></pre></div><h3 id="52-pruebas-de-conectividad">5.2 Pruebas de Conectividad</h3>
+<p><strong>Desde Cliente1 (10.50.50.2):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ping al servidor VPN</span>
+</span></span><span style="display:flex;"><span>ping 10.200.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ping al router r2</span>
+</span></span><span style="display:flex;"><span>ping 10.200.0.20
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ping a Cliente2</span>
+</span></span><span style="display:flex;"><span>ping 10.60.60.2
+</span></span></code></pre></div><p><strong>Desde Cliente2 (10.60.60.2):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ping al servidor VPN</span>
+</span></span><span style="display:flex;"><span>ping 10.200.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ping al router r1</span>
+</span></span><span style="display:flex;"><span>ping 10.200.0.10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ping a Cliente1</span>
+</span></span><span style="display:flex;"><span>ping 10.50.50.2
+</span></span></code></pre></div><h3 id="53-traceroute-para-verificar-ruta">5.3 Traceroute para Verificar Ruta</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Desde Cliente1 a Cliente2</span>
+</span></span><span style="display:flex;"><span>traceroute 10.60.60.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Debería mostrar:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. 10.50.50.1 (router r1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 10.200.0.1 (servidor VPN)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 10.60.60.2 (Cliente2)</span>
+</span></span></code></pre></div><hr>
+<h2 id="fase-6-solución-de-problemas-comunes">FASE 6: Solución de Problemas Comunes</h2>
+<h3 id="61-problema-los-clientes-no-se-conectan-al-servidor">6.1 Problema: Los Clientes No Se Conectan al Servidor</h3>
+<p><strong>Posibles causas:</strong></p>
+<ol>
+<li>Firewall bloqueando puerto 1194</li>
+<li>Certificados incorrectos</li>
+<li>Diferencias en configuración de cifrado</li>
+</ol>
+<p><strong>Soluciones:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verificar firewall</span>
+</span></span><span style="display:flex;"><span>sudo ufw status
+</span></span><span style="display:flex;"><span>sudo ufw allow 1194/udp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verificar logs del servidor</span>
+</span></span><span style="display:flex;"><span>sudo journalctl -u openvpn-server@server -f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verificar logs del cliente</span>
+</span></span><span style="display:flex;"><span>sudo journalctl -u openvpn-client@sitio1 -f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verificar conectividad al servidor</span>
+</span></span><span style="display:flex;"><span>telnet 5.168.1.100 <span style="color:#ae81ff">1194</span>
+</span></span></code></pre></div><h3 id="62-problema-conexión-establecida-pero-sin-comunicación">6.2 Problema: Conexión Establecida pero Sin Comunicación</h3>
+<p><strong>Posibles causas:</strong></p>
+<ol>
+<li>IP forwarding deshabilitado</li>
+<li>Rutas estáticas faltantes</li>
+<li>Firewall bloqueando tráfico</li>
+</ol>
+<p><strong>Soluciones:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verificar IP forwarding</span>
+</span></span><span style="display:flex;"><span>sysctl net.ipv4.ip_forward
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Debe retornar: net.ipv4.ip_forward = 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verificar rutas</span>
+</span></span><span style="display:flex;"><span>ip route | grep 10.200.0.0
+</span></span><span style="display:flex;"><span>ip route | grep 10.50.50.0
+</span></span><span style="display:flex;"><span>ip route | grep 10.60.60.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verificar NAT/iptables</span>
+</span></span><span style="display:flex;"><span>sudo iptables -t nat -L -v -n
+</span></span></code></pre></div><h3 id="63-problema-certificados-rechazados">6.3 Problema: Certificados Rechazados</h3>
+<p><strong>Error típico:</strong> <code>TLS Error: cannot locate HMAC in incoming packet</code></p>
+<p><strong>Solución:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verificar que la directiva key-direction sea correcta</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Servidor: tls-auth ta.key 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cliente: tls-auth ta.key 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Regenerar certificados si es necesario</span>
+</span></span><span style="display:flex;"><span>cd ~/openvpn-ca
+</span></span><span style="display:flex;"><span>./easyrsa revoke sitio1
+</span></span><span style="display:flex;"><span>./easyrsa gen-crl
+</span></span><span style="display:flex;"><span>./easyrsa build-client-full sitio1 nopass
+</span></span></code></pre></div><h3 id="64-problema-conexión-lenta-o-inestable">6.4 Problema: Conexión Lenta o Inestable</h3>
+<p><strong>Soluciones:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ajustar MTU en configuración</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;tun-mtu 1500&#34;</span> | sudo tee -a /etc/openvpn/server/server.conf
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;fragment 1300&#34;</span> | sudo tee -a /etc/openvpn/server/server.conf
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;mssfix 1250&#34;</span> | sudo tee -a /etc/openvpn/server/server.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deshabilitar compresión si causa problemas</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Comentar la línea &#34;compress lz4-v2&#34; en ambos lados</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Probar con TCP en lugar de UDP</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cambiar &#34;proto udp&#34; por &#34;proto tcp&#34; (requiere cambios en firewall)</span>
+</span></span></code></pre></div><h3 id="65-verificar-que-ccd-funciona">6.5 Verificar que CCD Funciona</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el servidor, verificar que los archivos CCD se leen</span>
+</span></span><span style="display:flex;"><span>sudo tail -f /var/log/openvpn/openvpn.log | grep iroute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Debería mostrar algo como:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ROUTE_GATEWAY 10.200.0.1/255.255.255.0 IFACE=tun0 HWADDR=...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># route_gateway -&gt; 10.200.0.1</span>
+</span></span></code></pre></div><hr>
+<h2 id="fase-7-configuraciones-adicionales-de-seguridad">FASE 7: Configuraciones Adicionales de Seguridad</h2>
+<h3 id="71-limitar-acceso-por-firewall">7.1 Limitar Acceso por Firewall</h3>
+<p>En el servidor VPN:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Permitir solo IPs específicas</span>
+</span></span><span style="display:flex;"><span>sudo ufw delete allow 1194/udp
+</span></span><span style="display:flex;"><span>sudo ufw allow from 10.99.80.0/24 to any port <span style="color:#ae81ff">1194</span> proto udp
+</span></span><span style="display:flex;"><span>sudo ufw allow from 10.99.70.0/24 to any port <span style="color:#ae81ff">1194</span> proto udp
+</span></span></code></pre></div><h3 id="72-configurar-logs-detallados">7.2 Configurar Logs Detallados</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En server.conf y client.conf</span>
+</span></span><span style="display:flex;"><span>verb <span style="color:#ae81ff">4</span>  <span style="color:#75715e"># Mayor nivel de detalle</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rotar logs</span>
+</span></span><span style="display:flex;"><span>sudo nano /etc/logrotate.d/openvpn
+</span></span></code></pre></div><p>Contenido:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">/var/log/openvpn/*.log {
+    weekly
+    rotate 4
+    missingok
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    postrotate
+        systemctl reload openvpn-server@server || true
+    endscript
+}
+</code></pre><h3 id="73-monitorización-automática">7.3 Monitorización Automática</h3>
+<p>Script de monitoreo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /usr/local/bin/vpn-monitor.sh
+</span></span></code></pre></div><p>Contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>VPN_STATUS<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>systemctl is-active openvpn-server@server<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$VPN_STATUS<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;active&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;OpenVPN server is down! Attempting restart...&#34;</span>
+</span></span><span style="display:flex;"><span>    systemctl restart openvpn-server@server
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Alert sent at </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> | mail -s <span style="color:#e6db74">&#34;VPN Server Down&#34;</span> admin@miempresa.com
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div><p>Hacer ejecutable y programar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod +x /usr/local/bin/vpn-monitor.sh
+</span></span><span style="display:flex;"><span>sudo crontab -e
+</span></span></code></pre></div><p>Añadir:</p>
+<pre tabindex="0"><code class="language-cron" data-lang="cron">*/5 * * * * /usr/local/bin/vpn-monitor.sh
+</code></pre><hr>
+<h2 id="resumen-de-comandos-importantes">Resumen de Comandos Importantes</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Servidor VPN</span>
+</span></span><span style="display:flex;"><span>sudo systemctl restart openvpn-server@server
+</span></span><span style="display:flex;"><span>sudo tail -f /var/log/openvpn/openvpn.log
+</span></span><span style="display:flex;"><span>sudo cat /var/log/openvpn/openvpn-status.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clientes (r1 y r2)</span>
+</span></span><span style="display:flex;"><span>sudo systemctl restart openvpn-client@sitio1
+</span></span><span style="display:flex;"><span>sudo journalctl -u openvpn-client@sitio1 -f
+</span></span><span style="display:flex;"><span>ip addr show tun0
+</span></span><span style="display:flex;"><span>ip route
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Pruebas</span>
+</span></span><span style="display:flex;"><span>ping 10.60.60.2  <span style="color:#75715e"># Desde Cliente1</span>
+</span></span><span style="display:flex;"><span>ping 10.50.50.2  <span style="color:#75715e"># Desde Cliente2</span>
+</span></span><span style="display:flex;"><span>traceroute 10.60.60.2
+</span></span></code></pre></div><hr>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://openvpn.net/community-resources/">Documentación oficial OpenVPN</a></li>
+<li><a href="https://openvpn.net/as-docs/tutorials/tutorial--site-to-site-network.html">OpenVPN Site-to-Site Tutorial</a></li>
+<li><a href="https://docs.netgate.com/pfsense/en/latest/recipes/openvpn-s2s-tls.html">pfSense OpenVPN Configuration</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+            
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.e89fda0f29b95d33f6f4224dd9e5cf69d84aff3818be2b0d73e731689cc374261b016d17d46f8381962fb4a1577ba3017b1f23509d894f6e66431f988c00889e.js" integrity="sha512-6J/aDym5XTP29CJN2eXPadhK/zgYvisNc&#43;cxaJzDdCYbAW0X1G&#43;DgZYvtKFXe6MBex8jUJ2JT25mQx&#43;YjACIng=="></script>
+
+
+
+
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+    const settings = localStorage.getItem("theme") === "dark" ?
+        {
+            startOnLoad: true,
+            theme: "dark",
+            darkMode: true,
+            themeVariables: {
+                tertiaryColor: "#dee3ed"
+            }
+        }
+        :
+        {
+            startOnLoad: true,
+            theme: "base",
+            darkMode: false,
+            themeVariables: {
+                tertiaryColor: "#dee3ed"
+            }
+        }
+    ;
+    mermaid.initialize(settings);
+</script>
+
+    </body>
+</html>

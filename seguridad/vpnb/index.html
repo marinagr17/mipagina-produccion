@@ -44,7 +44,7 @@ Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente
   <meta itemprop="name" content="Ping a Marina">
   <meta itemprop="description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
 Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
-  <meta itemprop="wordCount" content="1717">
+  <meta itemprop="wordCount" content="1812">
   <meta itemprop="image" content="https://pingamarina.vercel.app/">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -314,24 +314,34 @@ Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente
 </span></span></code></pre></div><p>Aplicar cambios:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
 </span></span><span style="display:flex;"><span>sudo sysctl -p
-</span></span></code></pre></div><h3 id="24-configurar-firewall-ufw">2.4 Configurar Firewall (UFW)</h3>
+</span></span></code></pre></div><h3 id="24-configurar-firewall">2.4 Configurar Firewall</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Permitir tráfico OpenVPN</span>
-</span></span><span style="display:flex;"><span>sudo ufw allow 1194/udp
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configurar NAT para el túnel</span>
-</span></span><span style="display:flex;"><span>sudo nano /etc/ufw/before.rules
-</span></span></code></pre></div><p>Añadir antes de las reglas <code>*filter</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># NAT table rules</span>
-</span></span><span style="display:flex;"><span>*nat
-</span></span><span style="display:flex;"><span>:POSTROUTING ACCEPT <span style="color:#f92672">[</span>0:0<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Forward traffic from OpenVPN to eth0</span>
-</span></span><span style="display:flex;"><span>-A POSTROUTING -s 10.99.99.0/24 -o ens6 -j MASQUERADE
-</span></span><span style="display:flex;"><span>COMMIT
-</span></span></code></pre></div><p>Reiniciar UFW:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
-</span></span><span style="display:flex;"><span>sudo ufw disable
-</span></span><span style="display:flex;"><span>sudo ufw enable
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Permitir tráfico OpenVPN entrante</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p udp --dport <span style="color:#ae81ff">1194</span> -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Permitir tráfico establecido y relacionado</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Permitir forward desde el túnel VPN hacia la red local</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -s 10.99.99.0/24 -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Permitir forward desde las redes remotas</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -s 10.50.50.0/24 -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -s 10.60.60.0/24 -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Configurar NAT/MASQUERADE para el túnel VPN</span>
+</span></span><span style="display:flex;"><span>sudo iptables -t nat -A POSTROUTING -s 10.99.99.0/24 -o ens6 -j MASQUERADE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Permitir tráfico en la interfaz tun0</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -i tun0 -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -i tun0 -j ACCEPT
+</span></span><span style="display:flex;"><span>sudo iptables -A FORWARD -o tun0 -j ACCEPT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7. Verificar las reglas</span>
+</span></span><span style="display:flex;"><span>sudo iptables -L -v -n
+</span></span><span style="display:flex;"><span>sudo iptables -t nat -L -v -n
 </span></span></code></pre></div><h3 id="25-crear-directorio-de-logs">2.5 Crear Directorio de Logs</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># En el Servidor VPN</span>
 </span></span><span style="display:flex;"><span>sudo mkdir -p /var/log/openvpn

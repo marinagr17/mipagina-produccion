@@ -455,30 +455,30 @@ Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente
 </span></span></code></pre></div><h3 id="42-crear-configuración-del-cliente">4.2 Crear Configuración del Cliente</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/openvpn/client/sitio2.conf
 </span></span></code></pre></div><p>Contenido:</p>
-<pre tabindex="0"><code class="language-conf" data-lang="conf">client
-dev tun
-proto udp
-remote 5.168.1.102 1194
-resolv-retry infinite
-nobind
-persist-key
-persist-tun
-
-ca /etc/openvpn/client/ca.crt
-cert /etc/openvpn/client/sitio2.crt
-key /etc/openvpn/client/sitio2.key
-tls-auth /etc/openvpn/client/ta.key 1
-
-cipher AES-256-GCM
-auth SHA256
-compress lz4-v2
-remote-cert-tls server
-
-verb 3
-
-# Ruta para alcanzar la red remota
-route 10.50.50.0 255.255.255.0
-</code></pre><h3 id="43-habilitar-ip-forwarding-en-r2">4.3 Habilitar IP Forwarding en r2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>client
+</span></span><span style="display:flex;"><span>dev tun
+</span></span><span style="display:flex;"><span>proto udp
+</span></span><span style="display:flex;"><span>remote 5.168.1.102 <span style="color:#ae81ff">1194</span>
+</span></span><span style="display:flex;"><span>resolv-retry infinite
+</span></span><span style="display:flex;"><span>nobind
+</span></span><span style="display:flex;"><span>persist-key
+</span></span><span style="display:flex;"><span>persist-tun
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ca /etc/openvpn/client/ca.crt
+</span></span><span style="display:flex;"><span>cert /etc/openvpn/client/sitio2.crt
+</span></span><span style="display:flex;"><span>key /etc/openvpn/client/sitio2.key
+</span></span><span style="display:flex;"><span>tls-auth /etc/openvpn/client/ta.key <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher AES-256-GCM
+</span></span><span style="display:flex;"><span>auth SHA256
+</span></span><span style="display:flex;"><span>compress lz4-v2
+</span></span><span style="display:flex;"><span>remote-cert-tls server
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>verb <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ruta para alcanzar la red remota</span>
+</span></span><span style="display:flex;"><span>route 10.50.50.0 255.255.255.0
+</span></span></code></pre></div><h3 id="43-habilitar-ip-forwarding-en-r2">4.3 Habilitar IP Forwarding en r2</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/sysctl.conf
 </span></span></code></pre></div><p>Añadir:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>

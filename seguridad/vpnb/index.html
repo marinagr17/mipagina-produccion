@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="">
 <meta name="description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
-flowchart TD NAT1[&ldquo;textNAT110.99.80.2/24&rdquo;] R1[&ldquo;Router r110.50.50.1/24&rdquo;] Cliente1[&ldquo;Cliente110.50.50.2/24&rdquo;] VPN[&ldquo;Servidor VPNTúnel: 5.168.1.100/24 ↔ 5.168.1.102/24Red VPN: 10.99.99.0/24&rdquo;] NAT2[&ldquo;NAT210.99.70.2/24&rdquo;] R2[&ldquo;Router r210.60.60.1/24&rdquo;] Cliente2[&ldquo;Cliente210.60.60.2/24&rdquo;]
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor
 " />
 <meta name="keywords" content="homepage, blog, informatica, redes" />
 <meta name="robots" content="noodp" />
@@ -43,15 +43,15 @@ flowchart TD NAT1[&ldquo;textNAT110.99.80.2/24&rdquo;] R1[&ldquo;Router r110.50.
 
   <meta itemprop="name" content="Ping a Marina">
   <meta itemprop="description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
-flowchart TD NAT1[“textNAT110.99.80.2/24”] R1[“Router r110.50.50.1/24”] Cliente1[“Cliente110.50.50.2/24”] VPN[“Servidor VPNTúnel: 5.168.1.100/24 ↔ 5.168.1.102/24Red VPN: 10.99.99.0/24”] NAT2[“NAT210.99.70.2/24”] R2[“Router r210.60.60.1/24”] Cliente2[“Cliente210.60.60.2/24”]">
-  <meta itemprop="wordCount" content="1718">
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
+  <meta itemprop="wordCount" content="1717">
   <meta itemprop="image" content="https://pingamarina.vercel.app/">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pingamarina.vercel.app/">
   <meta name="twitter:title" content="Ping a Marina">
   <meta name="twitter:description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
-flowchart TD NAT1[“textNAT110.99.80.2/24”] R1[“Router r110.50.50.1/24”] Cliente1[“Cliente110.50.50.2/24”] VPN[“Servidor VPNTúnel: 5.168.1.100/24 ↔ 5.168.1.102/24Red VPN: 10.99.99.0/24”] NAT2[“NAT210.99.70.2/24”] R2[“Router r210.60.60.1/24”] Cliente2[“Cliente210.60.60.2/24”]">
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
 
 
 
@@ -59,7 +59,7 @@ flowchart TD NAT1[“textNAT110.99.80.2/24”] R1[“Router r110.50.50.1/24”] 
   <meta property="og:site_name" content="Ping a Marina">
   <meta property="og:title" content="Ping a Marina">
   <meta property="og:description" content="Configuración OpenVPN Site-to-Site Arquitectura del Escenario Objetivo: Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.
-flowchart TD NAT1[“textNAT110.99.80.2/24”] R1[“Router r110.50.50.1/24”] Cliente1[“Cliente110.50.50.2/24”] VPN[“Servidor VPNTúnel: 5.168.1.100/24 ↔ 5.168.1.102/24Red VPN: 10.99.99.0/24”] NAT2[“NAT210.99.70.2/24”] R2[“Router r210.60.60.1/24”] Cliente2[“Cliente210.60.60.2/24”]">
+Topología de Red NAT1 (10.99.80.2/24) ↓ Router r1 (10.50.50.1/24) ↓ Cliente1 (10.50.50.2/24) Servidor VPN - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24 - Red VPN interna: 10.99.99.0/24 NAT2 (10.99.70.2/24) ↓ Router r2 (10.60.60.1/24) ↓ Cliente2 (10.60.60.2/24) Máquinas en el Escenario Servidor: Máquina central que ejecuta el servidor OpenVPN NAT1: Gateway con acceso a Internet para el sitio 1 r1: Router del sitio 1 (cliente OpenVPN) Cliente1: Máquina final del sitio 1 NAT2: Gateway con acceso a Internet para el sitio 2 r2: Router del sitio 2 (cliente OpenVPN) Cliente2: Máquina final del sitio 2 FASE 1: Preparación del Servidor VPN 🖥️ MÁQUINA: Servidor">
   <meta property="og:locale" content="es">
   <meta property="og:type" content="article">
     <meta property="article:section" content="seguridad">
@@ -148,21 +148,23 @@ flowchart TD NAT1[“textNAT110.99.80.2/24”] R1[“Router r110.50.50.1/24”] 
                 <h1 id="configuración-openvpn-site-to-site">Configuración OpenVPN Site-to-Site</h1>
 <h2 id="arquitectura-del-escenario">Arquitectura del Escenario</h2>
 <p><strong>Objetivo:</strong> Conectar Cliente1 (10.50.50.2/24) con Cliente2 (10.60.60.2/24) a través de un túnel VPN site-to-site usando el servidor VPN como punto central.</p>
-<p>flowchart TD
-NAT1[&ldquo;textNAT1<!-- raw HTML omitted -->10.99.80.2/24&rdquo;]
-R1[&ldquo;Router r1<!-- raw HTML omitted -->10.50.50.1/24&rdquo;]
-Cliente1[&ldquo;Cliente1<!-- raw HTML omitted -->10.50.50.2/24&rdquo;]
-VPN[&ldquo;Servidor VPN<!-- raw HTML omitted -->Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24<!-- raw HTML omitted -->Red VPN: 10.99.99.0/24&rdquo;]
-NAT2[&ldquo;NAT2<!-- raw HTML omitted -->10.99.70.2/24&rdquo;]
-R2[&ldquo;Router r2<!-- raw HTML omitted -->10.60.60.1/24&rdquo;]
-Cliente2[&ldquo;Cliente2<!-- raw HTML omitted -->10.60.60.2/24&rdquo;]</p>
-<pre><code>NAT1 --&gt; R1
-R1 --&gt; Cliente1
-Cliente1 --&gt; VPN
-VPN --&gt; NAT2
-NAT2 --&gt; R2
-R2 --&gt; Cliente2
-</code></pre>
+<h3 id="topología-de-red">Topología de Red</h3>
+<pre class="mermaid">NAT1 (10.99.80.2/24)
+  ↓
+Router r1 (10.50.50.1/24)
+  ↓
+Cliente1 (10.50.50.2/24)
+
+Servidor VPN
+  - IP Túnel: 5.168.1.100/24 ↔ 5.168.1.102/24
+  - Red VPN interna: 10.99.99.0/24
+
+NAT2 (10.99.70.2/24)
+  ↓
+Router r2 (10.60.60.1/24)
+  ↓
+Cliente2 (10.60.60.2/24)
+</pre>
 <h3 id="máquinas-en-el-escenario">Máquinas en el Escenario</h3>
 <ul>
 <li><strong>Servidor</strong>: Máquina central que ejecuta el servidor OpenVPN</li>
@@ -702,6 +704,30 @@ route 10.50.50.0 255.255.255.0
 
 
 
+
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs";
+    const settings = localStorage.getItem("theme") === "dark" ?
+        {
+            startOnLoad: true,
+            theme: "dark",
+            darkMode: true,
+            themeVariables: {
+                tertiaryColor: "#dee3ed"
+            }
+        }
+        :
+        {
+            startOnLoad: true,
+            theme: "base",
+            darkMode: false,
+            themeVariables: {
+                tertiaryColor: "#dee3ed"
+            }
+        }
+    ;
+    mermaid.initialize(settings);
+</script>
 
     </body>
 </html>
